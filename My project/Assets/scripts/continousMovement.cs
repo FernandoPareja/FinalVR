@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.XR;
 public class continousMovement : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed = 4f;
     public XRNode inputSource;
+    public XRNode inputSource2;
+    private shield escudo;
+    public GameObject shieldObj;
     public GameObject rig;
     private Vector2 inputAxis;
     private CharacterController character;
@@ -16,6 +19,8 @@ public class continousMovement : MonoBehaviour
     void Start()
     {
         character = GetComponent<CharacterController>();
+        
+        escudo = (shield)shieldObj.GetComponent(typeof(shield));
     }
 
     // Update is called once per frame
@@ -23,6 +28,13 @@ public class continousMovement : MonoBehaviour
     {
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
+
+        InputDevice device2 = InputDevices.GetDeviceAtXRNode(inputSource2);
+        device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue);
+        if(triggerValue > 0.1f){
+            escudo.InvokeShield();
+            
+        }
     }
     private void FixedUpdate() {
 

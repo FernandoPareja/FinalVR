@@ -16,14 +16,15 @@ public class ZOM : MonoBehaviour
     private void Start()
     {
       
-        
+        player =  GameObject.FindWithTag("Player");
     }
 
     private void Update() {
+
         this.transform.LookAt(player.transform);
         this.transform.Translate(Vector3.forward * 2 * Time.deltaTime);
 
-        
+       
     }
   
  
